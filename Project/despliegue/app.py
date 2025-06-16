@@ -96,7 +96,7 @@ else:  # Reforestation Forecasting
             try:
                 modelo = load_model_from_huggingface(HF_MODEL_URL)
                 # Add loading of the original data
-                df_original = pd.read_csv(r'prediccion_reforestacion/data/data_monitoreo_contaminantes_filtrado_best.csv')
+                df_original = pd.read_csv('https://raw.githubusercontent.com/Milko0/air_quality_project/b192d79a4bade1d29bac44821d6f40a37e806804/Project/prediccion_reforestacion/data/data_monitoreo_contaminantes_filtrado_best.csv')
                 st.success("Model loaded successfully!")
             except Exception as e:
                 st.warning(f"Could not load model from default path: {str(e)}")
