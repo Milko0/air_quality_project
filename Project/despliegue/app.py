@@ -94,7 +94,6 @@ else:  # Reforestation Forecasting
                 st.success("Model loaded successfully!")
             except Exception as e:
                 st.warning(f"Could not load model from default path: {str(e)}")
-                st.info("Using sample data for visualization. For accurate predictions, ensure the model file is in the correct location.")
                 
             # Constants for the simulation
             TASA_SUPERVIVENCIA = 0.7
