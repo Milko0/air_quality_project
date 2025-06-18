@@ -3,14 +3,11 @@ streamlit>=1.44.0
 pandas>=2.2.0
 numpy>=2.1.0
 
-# Machine Learning - Use compatible versions
-joblib==1.2.0
-scikit-learn==1.2.2  # Downgrade to compatible version
+# Machine Learning
+joblib>=1.4.0 
 
 # Visualization
-plotly>=6.0.0
-matplotlib>=3.10.0
-seaborn>=0.13.0
+plotly>=6.0.0 
 
 # Image processing
 Pillow>=11.0.0
