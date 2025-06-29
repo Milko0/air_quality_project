@@ -112,7 +112,7 @@ else:  # Reforestation Forecasting
                 2021: 160932,
                 2022: 150136,
                 2023: 86957,
-                2024: 115548
+                2024: 229392
             }
             
             ARBOLES_PROMEDIO = np.mean(list(arboles_serpar.values()))
