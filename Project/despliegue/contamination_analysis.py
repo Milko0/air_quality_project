@@ -2,21 +2,30 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px  
+import requests
+from io import BytesIO
 
 def contamination():
 
     st.markdown('<h2 class="section-header">Greenhouse Gas Emissions Analysis</h2>', unsafe_allow_html=True)
-        
+    
     st.markdown('<p class="description">This section presents interactive visualizations of greenhouse gas emissions by sector, category, and emission source over time. Explore the data to identify major contributors to climate change.</p>', unsafe_allow_html=True)
+    
+    # GitHub raw file URL
+    github_url = "https://raw.githubusercontent.com/Milko0/air_quality_project/main/Project/deteccion_contaminantes/data/data_emisores_gases_efecto_invernadero.xlsx"
+    
         
-        # File uploader
-    uploaded_file = st.file_uploader("Upload your emissions data (Excel format)", type="xlsx")
-        
-    if uploaded_file is not None:
-            # Load and preprocess data
-            try:
-                df = pd.read_excel(uploaded_file)
-                
+    # Load data from GitHub with loading message
+    with st.spinner('Loading emissions data from GitHub...'):
+        try:
+            # Download file from GitHub
+                response = requests.get(github_url)
+                response.raise_for_status()  # Raise an exception for bad status codes
+            
+            # Load Excel file from bytes
+                df = pd.read_excel(BytesIO(response.content))
+            
+                st.success("✅ Data loaded successfully from GitHub!")
                 # Data preprocessing
                 columnas_numericas = [
                     'DIOXIDO_DE_CARBONO_GGCO2',
@@ -275,27 +284,12 @@ def contamination():
                                 fig_sector_time.update_layout(height=400)
                                 st.plotly_chart(fig_sector_time, use_container_width=True)
             
-            except Exception as e:
-                st.error(f"Error processing the data: {e}")
-        
-    else:
-            # Display sample data and instructions
-            st.info("Please upload your greenhouse gas emissions data file in Excel format to begin analysis.")
-            st.markdown("""
-            The data should contain the following columns:
-            - ANIO (Year)
-            - SECTOR
-            - CATEGORIA
-            - SUBCATEGORIA
-            - FUENTE_DE_EMISION
-            - DIOXIDO_DE_CARBONO_GGCO2
-            - METANO_GGCH4
-            - METANO_EQUIVALENTE_GGCO2EQ
-            - OXIDO_NITROSO_GGN2O
-            - OXIDO_NITROSO_EQUIVALENTE_GGCO2EQ
-            - EMISIONES_GEI_GGCO2EQ
-            """)
             
-            # Sample visualization
-            st.markdown("### Sample Visualization")
-            st.image("https://www.epa.gov/sites/default/files/2016-05/us-ghg-2014.png", caption="Sample GHG emissions visualization")
+        
+        except requests.exceptions.RequestException as e:
+            st.error(f"❌ Error downloading file from GitHub: {str(e)}")
+            st.info("Please check your internet connection and verify the GitHub URL is accessible.")
+            
+        except Exception as e:
+            st.error(f"❌ Error processing the data: {str(e)}")
+            st.info("There might be an issue with the file format or data structure.")
