@@ -687,4 +687,4 @@ else:  # Reforestation Forecasting
 
 # Footer
 st.markdown("---")
-st.markdown("Developed with ❤️ using Streamlit and Plotly | Data last updated: April 2025")
+st.markdown("Developed with ❤️ using Streamlit and Plotly | Data last updated: July 2025")
