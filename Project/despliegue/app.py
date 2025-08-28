@@ -178,7 +178,7 @@ else:  # Reforestation Forecasting
                 # Convertir a reducción diaria
                 reduccion_diaria_gramos = reduccion_anual_gramos / 365
                 # Convertir a reducción de concentración en μg/m³
-                reduccion_concentracion = (reduccion_diaria_gramos * 1000000) / VOLUMEN_AIRE
+                reduccion_concentracion = (reduccion_diaria_gramos * 1000) / VOLUMEN_AIRE
                 return reduccion_concentracion
             
             def simular_escenarios(df_pred, arboles_anuales, start_year=2025, tasa_supervivencia=0.7):
